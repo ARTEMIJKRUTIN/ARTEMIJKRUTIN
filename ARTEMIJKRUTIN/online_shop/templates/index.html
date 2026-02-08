@@ -2,10 +2,31 @@
 <html>
     <head>
         <title>My shop</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+
     </head>
     <body>
-        <h1>Online Shop</h1>
-        <a href="/products">Перейти до списку товарів</a>
+        <h1>Online Zabka</h1>
+        <div class="action-bar">
+            <a class="btn" href="{{ url_for('routes.product') }}">Edit Products</a>
+        </div>
+        
+        <div class="products">
+            {% for product in products %}
+            <div class="card">
+                <img src="{{ url_for('static', filename='images/' ~ product.id ~ '.png') }}"
+                alt="{{ product.name }}"
+                onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.png') }}'">
+                <h2 class="product-name">{{ product.name }}</h2>
+                <p class="product-feature">Price: ${{ '%.2f'|format(product.price) }}</p>
+            </div>
+                {% endfor %}
+            
+        </div>
+<script src="{{url_for('static', filename='modal.js')}}">
+    
 
     </body>
 </html>

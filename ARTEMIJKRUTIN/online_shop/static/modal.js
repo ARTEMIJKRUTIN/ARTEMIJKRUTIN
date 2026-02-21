@@ -22,15 +22,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
 
-  function buildMetaHTML(attrs) {
-    return `
-      <p><strong>Category:</strong> ${attrs.category || '—'}
-      • <strong>Rating:</strong> ${attrs.rating || '—'}
+function buildMetaHTML(attrs) {
+  return `
+    <p>
+      <strong>Category:</strong> ${attrs.category || '—'}
       • <strong>Sale:</strong> ${attrs.sale || 'False'}
       • <strong>Active:</strong> ${attrs.active || 'False'}
-</p>
-    `;
-  }
+    </p>
+
+    <div class="rating" data-rating="${attrs.rating || 0}">
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+      <span class="star">★</span>
+    </div>
+  `;
+}
+
 
   document.querySelectorAll('.btn-details').forEach(function(btn) {
     btn.addEventListener('click', function() {
@@ -52,6 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
       modalStock.textContent = 'Stock: ' + attrs.stock;
       modalDesc.textContent = attrs.description || 'No description';
       modalMeta.innerHTML = buildMetaHTML(attrs);
+      const ratingDiv = modal.querySelector('.rating');
+      updateRatingStars(ratingDiv);
+
 
 
       openModal();
